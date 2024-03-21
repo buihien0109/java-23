@@ -15,3 +15,10 @@ Ghi chú cho buổi học
 </body>
 </html>
 ```
+
+### Nội dung học
+
+- Khai báo biến
+- Kiểu dữ liệu
+
+> Ghi chú thêm
