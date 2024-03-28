@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .hide {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Quiz Application</h1>
+
+        <div id="question">
+            <p>Câu 1: Thủ đô của Việt Nam là gì?</p>
+        </div>
+
+        <div class="choices">
+            <div class="choice-item">
+                <input type="radio" name="choice" id="1" value="Hà Nội" />
+                <label for="1">Hà Nội</label>
+            </div>
+            <div class="choice-item">
+                <input
+                    type="radio"
+                    name="choice"
+                    id="2"
+                    value="TP Hồ Chí Minh"
+                />
+                <label for="2">TP Hồ Chí Minh</label>
+            </div>
+            <div class="choice-item">
+                <input type="radio" name="choice" id="3" value="Hải Phòng" />
+                <label for="3">Hải Phòng</label>
+            </div>
+            <div class="choice-item">
+                <input type="radio" name="choice" id="4" value="Đà Nẵng" />
+                <label for="4">Đà Nẵng</label>
+            </div>
+        </div>
+
+        <div>
+            <button id="btn-next">Câu tiếp theo</button>
+            <button id="btn-finish" class="hide">Kết thúc</button>
+        </div>
+
+        <script src="./main.js"></script>
+    </body>
+</html>
