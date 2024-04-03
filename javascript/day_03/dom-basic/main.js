@@ -15,13 +15,13 @@ heading.innerText = "Xin chào các bạn"
 const paraList = document.querySelectorAll("p");
 console.log(paraList);
 
-// for (let i = 0; i < paraList.length; i++) {
-//     paraList[i].style.color = "blue";
-// }
+for (let i = 0; i < paraList.length; i++) {
+    paraList[i].style.color = "blue";
+}
 
-// Array.from(paraList).forEach(p => {
-//     p.style.color = "blue";
-// });
+Array.from(paraList).forEach(p => {
+    p.style.color = "blue";
+});
 
 Array.from(paraList).map(p => p.style.color = "blue");
 
