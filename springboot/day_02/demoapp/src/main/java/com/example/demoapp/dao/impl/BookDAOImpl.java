@@ -16,11 +16,15 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public Book findById(int id) {
-        for (Book book : BookDB.books) {
-            if (book.getId() == id) {
-                return book;
-            }
-        }
-        return null;
+//        for (Book book : BookDB.books) {
+//            if (book.getId() == id) {
+//                return book;
+//            }
+//        }
+//        return null;
+        return BookDB.books.stream()
+                .filter(book -> book.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 }
