@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Trang chủ</h1>
+
+<h2>Thông tin user</h2>
+<ul>
+    <li th:text="'ID: ' + ${user.id}">ID</li>
+    <li th:text="|Name: ${user.name}|">Name</li>
+    <li>
+        Age: <th:block th:text="${user.age}"></th:block>
+    </li>
+    <li>
+        Status: <th:block th:text="${user.status ? 'Nam' : 'Nữ'}"></th:block>
+    </li>
+</ul>
+
+<h2>Danh sách user</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user, state : ${users}" th:classappend="${state.odd ? 'active' : ''}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.name}">Nguyễn Văn</td>
+        <td th:text="${user.age}">24</td>
+        <td th:text="${user.status ? 'Nam' : 'Nữ'}">Nam</td>
+        <td>
+            <a th:href="@{/users/{id} (id=${user.id})}">Xem chi tiết</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
