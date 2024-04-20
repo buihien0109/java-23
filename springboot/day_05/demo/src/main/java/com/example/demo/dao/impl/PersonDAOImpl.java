@@ -1,6 +1,7 @@
 package com.example.demo.dao.impl;
 
 import com.example.demo.dao.PersonDAO;
+import com.example.demo.database.PersonDB;
 import com.example.demo.model.Person;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,7 @@ public class PersonDAOImpl implements PersonDAO {
 
     @Override
     public List<Person> getAll() {
-        return List.of();
+        return PersonDB.people;
     }
 
     @Override

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>Danh sách People</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>fullname</th>
+        <th>job</th>
+        <th>gender</th>
+        <th>city</th>
+        <th>salary</th>
+        <th>birthday</th>
+        <th>children</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="person : ${pageData.getContent()}">
+        <td th:text="${person.id}">1</td>
+        <td th:text="${person.fullname}">Nguyễn Văn</td>
+        <td th:text="${person.job}">1</td>
+        <td th:text="${person.gender}">Nguyễn Văn</td>
+        <td th:text="${person.city}">1</td>
+        <td th:text="${person.salary}">Nguyễn Văn</td>
+        <td th:text="${#temporals.format(person.birthday, 'dd/MM/yyyy')}">1</td>
+        <td th:text="${person.children.size()}">Nguyễn Văn</td>
+    </tr>
+    </tbody>
+</table>
+
+<ul style="display: flex; list-style-type: none" th:if="${pageData.getTotalPages() != 1}">
+    <li th:if="${pageData.getCurrentPage() != 1}">
+        <button><a th:href="@{/people (page=${pageData.getCurrentPage() - 1})}">Trang trước</a></button>
+    </li>
+
+    <li th:each="number: ${#numbers.sequence(1, pageData.getTotalPages())}">
+        <button th:styleappend="${number == pageData.getCurrentPage() ? 'background-color: red' : ''}">
+            <a th:href="@{/people (page=${number})}" th:text="${number}">Trang trước</a>
+        </button>
+    </li>
+
+    <li th:if="${pageData.getCurrentPage() != pageData.getTotalPages()}">
+        <button><a th:href="@{/people (page=${pageData.getCurrentPage() + 1})}">Trang sau</a></button>
+    </li>
+</ul>
+</body>
+</html>
