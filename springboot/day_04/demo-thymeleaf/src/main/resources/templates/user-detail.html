@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết user</title>
+</head>
+<body>
+<h1 th:if="${user == null}">Không tìm thấy user</h1>
+
+<th:block th:if="${user != null}">
+    <h1>Thông tin user</h1>
+
+    <ul>
+        <li th:text="'ID: ' + ${user.id}">ID</li>
+        <li th:text="|Name: ${user.name}|">Name</li>
+        <li>
+            Age: <th:block th:text="${user.age}"></th:block>
+        </li>
+        <li>
+            Status: <th:block th:text="${user.status ? 'Nam' : 'Nữ'}"></th:block>
+        </li>
+    </ul>
+</th:block>
+</body>
+</html>

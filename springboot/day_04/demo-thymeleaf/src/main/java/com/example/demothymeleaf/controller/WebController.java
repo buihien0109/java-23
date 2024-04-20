@@ -4,6 +4,8 @@ import com.example.demothymeleaf.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +25,30 @@ public class WebController {
     );
 
     @GetMapping("/")
-    public String getHome(Model model) {
+    public String getHome(Model model, @RequestParam(required = false) Boolean status) {
+        List<User> userList;
+        if (status != null) {
+            userList = users.stream()
+                    .filter(u -> u.isStatus() == status)
+                    .toList();
+        } else {
+            userList = users;
+        }
+
         model.addAttribute("user", users.get(0));
-        model.addAttribute("users", users);
+        model.addAttribute("users", userList);
         return "index";
+    }
+
+    @GetMapping("/users/{id}")
+    public String getUserDetail(Model model, @PathVariable int id) {
+        User user = users.stream()
+                .filter(u -> u.getId() == id)
+                .findFirst()
+                .orElse(null);
+
+        model.addAttribute("user", user);
+        return "user-detail";
     }
 
     @GetMapping("/blog")
