@@ -1,0 +1,26 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.movie-poster {
+    height: 250px;
+}
+
+.movie-poster img {
+    object-fit: cover;
+    transition: all 0.3s;
+}
+
+.movie-poster:hover img {
+    transform: scale(1.2);
+}
