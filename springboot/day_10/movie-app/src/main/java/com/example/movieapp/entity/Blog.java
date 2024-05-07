@@ -1,11 +1,11 @@
 package com.example.movieapp.entity;
 
-import com.example.movieapp.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,25 +14,23 @@ import java.time.LocalDateTime;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "blogs")
+public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @Column(nullable = false)
-    String name;
+    String title;
+    String slug;
 
-    @Column(nullable = false, unique = true)
-    String email;
+    @Column(columnDefinition = "TEXT")
+    String description;
 
-    String avatar;
+    @Column(columnDefinition = "TEXT")
+    String content;
 
-    @Column(nullable = false)
-    String password;
-
-    @Enumerated(EnumType.STRING)
-    UserRole role;
+    String thumbnail;
+    Boolean status;
 
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
