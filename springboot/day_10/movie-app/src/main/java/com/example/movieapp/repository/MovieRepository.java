@@ -33,4 +33,8 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     // Phân trang
     Page<Movie> findByStatus(Boolean status, Pageable pageable);
+
+    List<Movie> findByTypeAndStatus(MovieType movieType, Boolean status, Sort sort);
+
+        Page<Movie> findByTypeAndStatus(MovieType movieType, Boolean status, Pageable pageable);
 }
