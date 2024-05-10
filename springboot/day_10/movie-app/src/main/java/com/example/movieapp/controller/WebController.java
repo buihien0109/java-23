@@ -5,7 +5,6 @@ import com.example.movieapp.model.enums.MovieType;
 import com.example.movieapp.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +19,12 @@ public class WebController {
 
     @GetMapping("/")
     public String getHomePage(Model model) {
+        List<Movie> listPhimBo = movieService.getMoviesByType(MovieType.PHIM_BO, true, 1, 6).getContent();
+        List<Movie> listPhimLe = movieService.getMoviesByType(MovieType.PHIM_LE, true, 1, 6).getContent();
+        List<Movie> listPhimChieuRap = movieService.getMoviesByType(MovieType.PHIM_CHIEU_RAP, true, 1, 6).getContent();
+        model.addAttribute("listPhimBo", listPhimBo);
+        model.addAttribute("listPhimLe", listPhimLe);
+        model.addAttribute("listPhimChieuRap", listPhimChieuRap);
         return "web/index";
     }
 
@@ -34,16 +39,22 @@ public class WebController {
     }
 
     @GetMapping("/phim-le")
-    public String getPhimLePage(Model model) {
-        List<Movie> movies = movieService.getMoviesByType(MovieType.PHIM_LE, true, Sort.by("createdAt").descending());
-        model.addAttribute("movies", movies);
+    public String getPhimLePage(Model model,
+                                @RequestParam(required = false, defaultValue = "1") int page,
+                                @RequestParam(required = false, defaultValue = "12") int pageSize) {
+        Page<Movie> pageData = movieService.getMoviesByType(MovieType.PHIM_LE, true, page, pageSize);
+        model.addAttribute("pageData", pageData);
+        model.addAttribute("currentPage", page);
         return "web/phim-le";
     }
 
     @GetMapping("/phim-chieu-rap")
-    public String getPhimChieuRapPage(Model model) {
-        List<Movie> movies = movieService.getMoviesByType(MovieType.PHIM_CHIEU_RAP, true, Sort.by("createdAt").descending());
-        model.addAttribute("movies", movies);
+    public String getPhimChieuRapPage(Model model,
+                                      @RequestParam(required = false, defaultValue = "1") int page,
+                                      @RequestParam(required = false, defaultValue = "12") int pageSize) {
+        Page<Movie> pageData = movieService.getMoviesByType(MovieType.PHIM_CHIEU_RAP, true, page, pageSize);
+        model.addAttribute("pageData", pageData);
+        model.addAttribute("currentPage", page);
         return "web/phim-chieu-rap";
     }
 }

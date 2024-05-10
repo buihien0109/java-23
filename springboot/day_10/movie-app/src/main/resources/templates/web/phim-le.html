@@ -54,7 +54,7 @@
     <div class="container">
         <h3 class="mb-3">Danh sách phim lẻ</h3>
         <div class="row">
-            <div class="col-2" th:each="movie : ${movies}">
+            <div class="col-2" th:each="movie : ${pageData.getContent()}">
                 <div class="movie-item">
                     <a th:href="@{/phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug})}"
                        class="movie-media">
@@ -67,21 +67,24 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mt-4" id="pagination">
+        <div class="d-flex justify-content-center mt-4" id="pagination" th:if="${pageData.getTotalPages() != 1}">
             <nav aria-label="...">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#">
+                    <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/phim-le (page=${currentPage - 1})}">
                             <i class="fa-solid fa-caret-left"></i>
                         </a>
                     </li>
 
-                    <li class="page-item">
-                        <a class="page-link" href="#">1</a>
+                    <li class="page-item"
+                        th:each="number: ${#numbers.sequence(1, pageData.getTotalPages())}"
+                        th:classappend="${currentPage == number ? 'active' : ''}"
+                    >
+                        <a class="page-link" th:href="@{/phim-le (page=${number})}" th:text="${number}">1</a>
                     </li>
 
-                    <li class="page-item">
-                        <a class="page-link" href="#">
+                    <li class="page-item" th:classappend="${currentPage == pageData.getTotalPages() ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/phim-le (page=${currentPage + 1})}">
                             <i class="fa-solid fa-caret-right"></i></a>
                     </li>
                 </ul>

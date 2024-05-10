@@ -78,14 +78,15 @@
             <a href="/phim-le" class="text-primary text-decoration-none">Xem thêm</a>
         </div>
         <div class="row">
-            <div class="col-2">
+            <div class="col-2" th:each="movie : ${listPhimLe}">
                 <div class="movie-item">
-                    <a href="#" class="movie-media">
+                    <a th:href="@{/phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug})}"
+                       class="movie-media">
                         <div class="movie-poster rounded overflow-hidden">
                             <img class="w-100 h-100"
-                                 src="https://image.motchilltv.ac/motchill/khanh-du-nien-phan-2-x350.webp" alt="Cô Đi Mà Lấy Chồng Tôi">
+                                 th:src="${movie.poster}" th:alt="${movie.name}">
                         </div>
-                        <p class="mt-2">Cô Đi Mà Lấy Chồng Tôi</p>
+                        <p class="mt-2" th:text="${movie.name}">Cô Đi Mà Lấy Chồng Tôi</p>
                     </a>
                 </div>
             </div>
@@ -100,14 +101,15 @@
             <a href="/phim-bo" class="text-primary text-decoration-none">Xem thêm</a>
         </div>
         <div class="row">
-            <div class="col-2">
+            <div class="col-2" th:each="movie : ${listPhimBo}">
                 <div class="movie-item">
-                    <a href="#" class="movie-media">
+                    <a th:href="@{/phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug})}"
+                       class="movie-media">
                         <div class="movie-poster rounded overflow-hidden">
                             <img class="w-100 h-100"
-                                 src="https://image.motchilltv.ac/motchill/khanh-du-nien-phan-2-x350.webp" alt="Cô Đi Mà Lấy Chồng Tôi">
+                                 th:src="${movie.poster}" th:alt="${movie.name}">
                         </div>
-                        <p class="mt-2">Cô Đi Mà Lấy Chồng Tôi</p>
+                        <p class="mt-2" th:text="${movie.name}">Cô Đi Mà Lấy Chồng Tôi</p>
                     </a>
                 </div>
             </div>
@@ -122,14 +124,15 @@
             <a href="/phim-chieu-rap" class="text-primary text-decoration-none">Xem thêm</a>
         </div>
         <div class="row">
-            <div class="col-2">
+            <div class="col-2" th:each="movie : ${listPhimChieuRap}">
                 <div class="movie-item">
-                    <a href="#" class="movie-media">
+                    <a th:href="@{/phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug})}"
+                       class="movie-media">
                         <div class="movie-poster rounded overflow-hidden">
                             <img class="w-100 h-100"
-                                 src="https://image.motchilltv.ac/motchill/khanh-du-nien-phan-2-x350.webp" alt="Cô Đi Mà Lấy Chồng Tôi">
+                                 th:src="${movie.poster}" th:alt="${movie.name}">
                         </div>
-                        <p class="mt-2">Cô Đi Mà Lấy Chồng Tôi</p>
+                        <p class="mt-2" th:text="${movie.name}">Cô Đi Mà Lấy Chồng Tôi</p>
                     </a>
                 </div>
             </div>
