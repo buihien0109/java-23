@@ -11,18 +11,29 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
+    List<Movie> findByStatus(Boolean status);
+
     List<Movie> findByName(String name);
+
     List<Movie> findByNameIgnoreCase(String name);
+
     List<Movie> findByNameContaining(String keyword);
+
     List<Movie> findByNameAndSlug(String name, String slug);
+
     List<Movie> findByRatingBetween(Double min, Double max);
+
     List<Movie> findByRatingLessThanEqual(Double max);
+
     List<Movie> findByCreatedAtAfter(LocalDateTime createdAt);
 
     // Sắp xếp
     List<Movie> findByType(MovieType type, Sort sort);
+
     List<Movie> findByTypeOrderByRatingDesc(MovieType type);
+
     List<Movie> findByTypeOrderByCreatedAtDesc(MovieType type);
+
     Movie findFirstByTypeOrderByRatingDesc(MovieType type);
 
     // Đếm số lượng
@@ -36,5 +47,5 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     List<Movie> findByTypeAndStatus(MovieType movieType, Boolean status, Sort sort);
 
-        Page<Movie> findByTypeAndStatus(MovieType movieType, Boolean status, Pageable pageable);
+    Page<Movie> findByTypeAndStatus(MovieType movieType, Boolean status, Pageable pageable);
 }

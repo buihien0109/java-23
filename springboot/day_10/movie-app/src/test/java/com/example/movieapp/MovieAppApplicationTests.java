@@ -307,10 +307,53 @@ class MovieAppApplicationTests {
 
     @Test
     void save_favorites() {
+        List<User> users = userRepository.findByRole(UserRole.USER);
+        List<Movie> movies = movieRepository.findByStatus(true);
+
+        for (User user : users) {
+            // 1 -> 3 favorite movies. Each favorite has a unique movie
+            List<Movie> favoriteMovies = new ArrayList<>();
+            for (int i = 0; i < new Random().nextInt(3) + 1; i++) {
+                Movie movie = movies.get(new Random().nextInt(movies.size()));
+                if (!favoriteMovies.contains(movie)) {
+                    favoriteMovies.add(movie);
+                }
+            }
+
+            for (Movie movie : favoriteMovies) {
+                Favorite favorite = Favorite.builder()
+                        .user(user)
+                        .movie(movie)
+                        .createdAt(LocalDateTime.now())
+                        .build();
+                favoriteRepository.save(favorite);
+            }
+        }
     }
 
     @Test
     void save_histories() {
+        List<User> users = userRepository.findByRole(UserRole.USER);
+        List<Movie> movies = movieRepository.findByStatus(true);
+
+        for (User user : users) {
+            // 1 -> 3 histories. Each history has a unique movie
+            List<Movie> historyMovies = new ArrayList<>();
+            for (int i = 0; i < new Random().nextInt(3) + 1; i++) {
+                Movie movie = movies.get(new Random().nextInt(movies.size()));
+                if (!historyMovies.contains(movie)) {
+                    historyMovies.add(movie);
+                }
+            }
+
+            for (Movie movie : historyMovies) {
+                if(movie.getType() == MovieType.PHIM_BO) {
+
+                } else {
+
+                }
+            }
+        }
     }
 
     @Test
