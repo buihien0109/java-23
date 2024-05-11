@@ -25,4 +25,12 @@ public class Comment {
 
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
+
+    @ManyToOne
+    @JoinColumn(name = "blog_id")
+    Blog blog;
 }
