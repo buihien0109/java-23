@@ -202,7 +202,7 @@ class MovieAppApplicationTests {
             List<Genre> rdGenres = new ArrayList<>();
             for (int j = 0; j < random.nextInt(3) + 1; j++) {
                 Genre rdGenre = genres.get(random.nextInt(genres.size()));
-                if(!rdGenres.contains(rdGenre)) {
+                if (!rdGenres.contains(rdGenre)) {
                     rdGenres.add(rdGenre);
                 }
             }
@@ -211,7 +211,7 @@ class MovieAppApplicationTests {
             List<Actor> rdActors = new ArrayList<>();
             for (int j = 0; j < random.nextInt(3) + 5; j++) {
                 Actor rdActor = actors.get(random.nextInt(actors.size()));
-                if(!rdActors.contains(rdActor)) {
+                if (!rdActors.contains(rdActor)) {
                     rdActors.add(rdActor);
                 }
             }
@@ -220,7 +220,7 @@ class MovieAppApplicationTests {
             List<Director> rdDirectors = new ArrayList<>();
             for (int j = 0; j < random.nextInt(3) + 1; j++) {
                 Director rdDirector = directors.get(random.nextInt(directors.size()));
-                if(!rdDirectors.contains(rdDirector)) {
+                if (!rdDirectors.contains(rdDirector)) {
                     rdDirectors.add(rdDirector);
                 }
             }
@@ -246,6 +246,71 @@ class MovieAppApplicationTests {
 
             movieRepository.save(movie);
         }
+    }
+
+    @Test
+    void save_reviews() {
+        Faker faker = new Faker();
+        Random random = new Random();
+
+        List<User> users = userRepository.findByRole(UserRole.USER);
+        List<Movie> movies = movieRepository.findAll();
+
+        for (Movie movie : movies) {
+            // random 5 -> 10 reviews
+            for (int i = 0; i < random.nextInt(6) + 5; i++) {
+                Review review = Review.builder()
+                        .content(faker.lorem().paragraph())
+                        .rating(random.nextInt(10) + 1)
+                        .createdAt(LocalDateTime.now())
+                        .updatedAt(LocalDateTime.now())
+                        .user(users.get(random.nextInt(users.size())))
+                        .movie(movie)
+                        .build();
+                reviewRepository.save(review);
+            }
+        }
+    }
+
+    @Test
+    void save_episodes() {
+        List<Movie> movies = movieRepository.findAll();
+        for (Movie movie : movies) {
+            if(movie.getType() == MovieType.PHIM_BO) {
+                // Random 5 -> 10 episodes
+                for (int i = 0; i < new Random().nextInt(6) + 5; i++) {
+                    Episode episode = Episode.builder()
+                            .name("Tập " + (i + 1))
+                            .duration(45)
+                            .videoUrl("blob:https://teacher.techmaster.vn/ded8c44b-aa96-4c22-8611-17ae8c9e7555")
+                            .displayOrder(i + 1)
+                            .createdAt(LocalDateTime.now())
+                            .updatedAt(LocalDateTime.now())
+                            .movie(movie)
+                            .build();
+                    episodeRepository.save(episode);
+                }
+            } else {
+                Episode episode = Episode.builder()
+                        .name("Tập full")
+                        .duration(120)
+                        .videoUrl("blob:https://teacher.techmaster.vn/ded8c44b-aa96-4c22-8611-17ae8c9e7555")
+                        .displayOrder(1)
+                        .createdAt(LocalDateTime.now())
+                        .updatedAt(LocalDateTime.now())
+                        .movie(movie)
+                        .build();
+                episodeRepository.save(episode);
+            }
+        }
+    }
+
+    @Test
+    void save_favorites() {
+    }
+
+    @Test
+    void save_histories() {
     }
 
     @Test
