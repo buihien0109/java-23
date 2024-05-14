@@ -299,3 +299,18 @@ ul {
 .rating-item.active {
     color: #EDBB0E;
 }
+
+.rating {
+    font-size: 24px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.star {
+    display: inline-block;
+}
+
+.star:hover,
+.star.active {
+    color: #EDBB0E;
+}
