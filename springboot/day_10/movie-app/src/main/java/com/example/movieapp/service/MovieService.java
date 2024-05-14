@@ -26,4 +26,22 @@ public class MovieService {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by("createdAt").descending());
         return movieRepository.findByTypeAndStatus(movieType, status, pageRequest);
     }
+
+    public Page<Movie> getHotMovies(Boolean status, Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("rating").descending());
+        return movieRepository.findByStatus(status, pageRequest);
+    }
+
+    public Movie getMovie(Integer id, String slug, Boolean status) {
+        return movieRepository.findByIdAndSlugAndStatus(id, slug, status).orElse(null);
+    }
+
+    public List<Movie> getRelatedMovies(Integer id, MovieType type, Boolean status, Integer size) {
+        return movieRepository
+                .findByTypeAndStatusAndRatingGreaterThanEqualAndIdNotOrderByRatingDescCreatedAtDesc(type, status, 5.0, id)
+                .stream()
+                .limit(size)
+                .toList();
+    }
+
 }

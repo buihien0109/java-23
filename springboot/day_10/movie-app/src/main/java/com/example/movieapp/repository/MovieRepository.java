@@ -8,7 +8,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findByStatus(Boolean status);
@@ -48,4 +50,8 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findByTypeAndStatus(MovieType movieType, Boolean status, Sort sort);
 
     Page<Movie> findByTypeAndStatus(MovieType movieType, Boolean status, Pageable pageable);
+
+    Optional<Movie> findByIdAndSlugAndStatus(Integer id, String slug, Boolean status);
+
+    List<Movie> findByTypeAndStatusAndRatingGreaterThanEqualAndIdNotOrderByRatingDescCreatedAtDesc(MovieType type, Boolean status, double raying, Integer id);
 }
