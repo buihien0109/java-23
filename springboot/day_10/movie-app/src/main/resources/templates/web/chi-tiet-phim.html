@@ -41,8 +41,11 @@
                     <a class="nav-link text-white" href="/tin-tuc">Tin tức</a>
                 </div>
                 <div>
-                    <div>
+                    <div th:if="${session.currentUser == null}">
                         <a class="text-white" href="/dang-nhap">Đăng nhập</a>
+                    </div>
+                    <div th:if="${session.currentUser != null}">
+                        <span class="text-white" th:text="${session.currentUser.name}">Abc</span>
                     </div>
                 </div>
             </div>
@@ -213,7 +216,7 @@
                             kết quả ở cuối phim.</p>
 
                     </div>
-                    <div>
+                    <div th:if="${session.currentUser.id == review.user.id}">
                         <button>Sua</button>
                         <button>Xoa</button>
                     </div>
@@ -349,6 +352,7 @@
 <script th:inline="javascript">
     const movie = [[${movie}]];
     const reviews = [[${reviews}]];
+    const currentUser = [[${session.currentUser}]];
     console.log(movie)
     console.log(reviews);
 </script>

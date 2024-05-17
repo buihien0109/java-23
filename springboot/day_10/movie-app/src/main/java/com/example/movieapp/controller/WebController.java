@@ -80,4 +80,9 @@ public class WebController {
         model.addAttribute("episodes", episodes);
         return "web/chi-tiet-phim";
     }
+
+    @GetMapping("/dang-nhap")
+    public String getLoginPage() {
+        return "web/login";
+    }
 }

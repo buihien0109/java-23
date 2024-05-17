@@ -314,3 +314,7 @@ ul {
 .star.active {
     color: #EDBB0E;
 }
+
+#form-login {
+    width: 500px;
+}
