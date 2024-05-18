@@ -68,6 +68,20 @@ const renderReview = reviews => {
                         </p>
                     </div>
                     <p class="rating-content mt-1 mb-0 text-muted">${review.content}</p>
+                    ${
+                        currentUser != null && currentUser.id === review.user.id
+                            ? `
+                                <div>
+                                    <button class="border-0 bg-transparent btn-edit-review text-primary me-2 text-decoration-underline">
+                                        Sửa
+                                    </button>
+                                    <button class="border-0 bg-transparent btn-delete-review text-danger text-decoration-underline">
+                                        Xóa
+                                    </button>
+                                </div>
+                                `
+                            : ''
+                    }
                 </div>
             </div>
         `
@@ -121,7 +135,7 @@ formReviewEl.addEventListener("submit", async (e) => {
         // Dong modal
         myModalReviewEl.hide();
 
-        // reset
+        toastr.success("Đánh giá thành công");
     } catch (e) {
         console.log(e)
     }
