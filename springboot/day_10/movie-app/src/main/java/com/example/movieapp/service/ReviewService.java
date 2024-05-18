@@ -3,6 +3,8 @@ package com.example.movieapp.service;
 import com.example.movieapp.entity.Movie;
 import com.example.movieapp.entity.Review;
 import com.example.movieapp.entity.User;
+import com.example.movieapp.exception.BadRequestException;
+import com.example.movieapp.exception.ResourceNotFoundException;
 import com.example.movieapp.model.request.UpsertReviewRequest;
 import com.example.movieapp.repository.MovieRepository;
 import com.example.movieapp.repository.ReviewRepository;
@@ -32,7 +34,7 @@ public class ReviewService {
 
         // Kiem tra xem movie co ton tai hay khong?
         Movie movie = movieRepository.findById(request.getMovieId())
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
 
         // Tao review
         Review review = Review.builder()
@@ -50,22 +52,22 @@ public class ReviewService {
 
     public Review updateReview(Integer id, UpsertReviewRequest request) {
         Review review = reviewRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Review not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Review not found"));
 
         User user = (User) session.getAttribute("currentUser");
 
         // Kiem tra xem movie co ton tai hay khong?
         Movie movie = movieRepository.findById(request.getMovieId())
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
 
         // Kiem tra xem review nay co phai cua user hay khong?
         if (!review.getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("Not review's owner");
+            throw new BadRequestException("Not review's owner");
         }
 
         // Kiem tra xem review nay co thuoc movie hay khong
         if (!review.getMovie().getId().equals(movie.getId())) {
-            throw new RuntimeException("Not review's movie");
+            throw new BadRequestException("Not review's movie");
         }
 
         // Cap nhat review
@@ -79,13 +81,13 @@ public class ReviewService {
 
     public void deleteReview(Integer id) {
         Review review = reviewRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Review not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Review not found"));
 
         User user = (User) session.getAttribute("currentUser");
 
         // Kiem tra xem review nay co phai cua user hay khong?
         if (!review.getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("Not review's owner");
+            throw new BadRequestException("Not review's owner");
         }
 
         reviewRepository.delete(review);

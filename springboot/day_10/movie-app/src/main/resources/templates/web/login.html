@@ -182,7 +182,7 @@
 
     formLoginEl.addEventListener("submit", async (e) => {
         e.preventDefault();
-        
+
         // Kiểm tra form đã validate không
         if(!$('#form-login').valid()) {
             return;
@@ -203,7 +203,7 @@
             }
         } catch (error) {
             console.log(error);
-            toastr.error("Tai khoan hoac mat khau khong dung");
+            toastr.error(error.response.data.message);
         }
     })
 </script>
