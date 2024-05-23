@@ -24,51 +24,7 @@
     <link rel="stylesheet" href="/web-assets/css/style.css">
 </head>
 <body>
-<header class="bg-dark header">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="/web-assets/image/logo.png" alt="logo" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#main-menu" aria-controls="main-menu" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between align-items-center" id="main-menu">
-                <div class="navbar-nav">
-                    <a class="nav-link text-white" href="/">Trang chủ</a>
-                    <a class="nav-link text-white" href="/phim-bo">Phim bộ</a>
-                    <a class="nav-link text-white" href="/phim-chieu-rap">Phim chiếu rạp</a>
-                    <a class="nav-link text-white" href="/phim-le">Phim lẻ</a>
-                    <a class="nav-link text-white" href="/tin-tuc">Tin tức</a>
-                </div>
-                <div>
-                    <div th:if="${session.currentUser == null}">
-                        <a class="text-white" href="/dang-nhap">Đăng nhập</a>
-                    </div>
-                    <div th:if="${session.currentUser != null}">
-                        <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle nav-link text-white" href="#" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false" th:text="${session.currentUser.name}">
-                                Dropdown link
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#"
-                                       th:if="${session.currentUser.role.toString().equals('ADMIN')}">Trang quản trị</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
-                                <li><a class="dropdown-item" href="#">Lịch sử xem phim</a></li>
-                                <li><a class="dropdown-item" href="#">Phim yêu thích</a></li>
-                                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+<th:block th:replace="~{/web/fragments/header :: header}"></th:block>
 
 <section class="py-4">
     <div class="container">
@@ -308,58 +264,7 @@
     </div>
 </div>
 
-<footer class="bg-dark py-4 text-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <a href="#">
-                    <img src="/web-assets/image/logo.png" alt="logo" class="logo">
-                </a>
-                <p class="mt-2">Motchill - Xem phim Online Vietsub chất lượng cao miễn phí, nhiều thể loại phim
-                    phong phú, đặc sắc, giao diện trực quan, thuận tiện, tốc độ tải nhanh, thường xuyên cập nhật các
-                    bộ phim mới.</p>
-            </div>
-            <div class="col-2">
-                <h5 class="text-uppercase mb-3">Danh mục</h5>
-                <p><a class="text-white" href="#">Tin tức</a></p>
-                <p><a class="text-white" href="#">Phim chiếu rạp</a></p>
-                <p><a class="text-white" href="#">Phim bộ</a></p>
-                <p><a class="text-white" href="#">Phim lẻ</a></p>
-                <p><a class="text-white" href="#">TV Show</a></p>
-            </div>
-            <div class="col-2">
-                <h5 class="text-uppercase mb-3">Thể loại</h5>
-                <p><a class="text-white" href="">Phim cổ trang</a></p>
-                <p><a class="text-white" href="">Phim đam mỹ</a></p>
-                <p><a class="text-white" href="">Phim bách hợp</a></p>
-                <p><a class="text-white" href="">Phim viễn tưởng</a></p>
-                <p><a class="text-white" href="">Phim hoạt hình</a></p>
-            </div>
-            <div class="col-2">
-                <h5 class="text-uppercase mb-3">Điều khoản</h5>
-                <p><a class="text-white" href="#">DMCA</a></p>
-                <p><a class="text-white" href="#">Liên hệ</a></p>
-                <p><a class="text-white" href="#">Privacy</a></p>
-                <p><a class="text-white" href="#">Terms of Service</a></p>
-            </div>
-
-            <div class="col-2">
-                <h5 class="text-uppercase mb-3">SOCIAL</h5>
-                <div class="d-flex">
-                    <p class="fs-4 me-3">
-                        <a class="text-white" href="#"><span><i class="fa-brands fa-facebook"></i></span></a>
-                    </p>
-                    <p class="fs-4 me-3">
-                        <a class="text-white" href="#"><span><i class="fa-brands fa-twitter"></i></span></a>
-                    </p>
-                    <p class="fs-4 me-2">
-                        <a class="text-white" href="#"><span><i class="fa-brands fa-youtube"></i></span></a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+<th:block th:replace="~{/web/fragments/footer :: footer}"></th:block>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
