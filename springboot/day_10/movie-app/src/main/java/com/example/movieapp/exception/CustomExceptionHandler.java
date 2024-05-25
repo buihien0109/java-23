@@ -30,6 +30,7 @@ public class CustomExceptionHandler {
     // 3. Xử lý các trường hợp còn lại
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handlerException(Exception e) {
+        e.printStackTrace();
         ErrorResponse response = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
