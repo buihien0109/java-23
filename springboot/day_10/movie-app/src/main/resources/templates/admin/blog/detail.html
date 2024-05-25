@@ -2,27 +2,27 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>AdminLTE 3 | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/admin-assets/plugins/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="/admin-assets/plugins/fontawesome-free/css/all.min.css"/>
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
 
     <!-- Theme style -->
-    <link rel="stylesheet" href="/admin-assets/dist/css/adminlte.min.css" />
+    <link rel="stylesheet" href="/admin-assets/dist/css/adminlte.min.css"/>
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/admin-assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />
+    <link rel="stylesheet" href="/admin-assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css"/>
 
-    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"/>
 
-    <link rel="stylesheet" href="/admin-assets/plugins/select2/css/select2.min.css" />
+    <link rel="stylesheet" href="/admin-assets/plugins/select2/css/select2.min.css"/>
     <link rel="stylesheet" href="/admin-assets/dist/css/style.css">
 </head>
 
@@ -44,7 +44,8 @@
                 <a class="nav-link py-0 d-flex align-items-center" data-toggle="dropdown" href="#">
                     <div class="user-panel">
                         <div class="image">
-                            <img src="/admin-assets/dist/img/user2-160x160.jpg" class="img-circle border" alt="User Image">
+                            <img src="/admin-assets/dist/img/user2-160x160.jpg" class="img-circle border"
+                                 alt="User Image">
                         </div>
                     </div>
                 </a>
@@ -69,8 +70,9 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="/admin/dashboard" class="brand-link">
-            <img src="/admin-assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: 0.8" />
+            <img src="/admin-assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+                 class="brand-image img-circle elevation-3"
+                 style="opacity: 0.8"/>
             <span class="brand-text font-weight-light">Admin</span>
         </a>
 
@@ -192,7 +194,7 @@
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label>Tiêu đề</label>
-                                            <input type="text" class="form-control" id="title" />
+                                            <input type="text" class="form-control" id="title"/>
                                         </div>
 
                                         <div class="form-group">
@@ -220,12 +222,12 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="thumbnail-preview-container mb-3">
-                                                <img src="" alt="" id="thumbnail" />
+                                                <img src="" alt="" id="thumbnail"/>
                                             </div>
-                                            <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                                    data-target="#modal-xl">
+                                            <label for="input-thumbnail" class="btn btn-info btn-flat">
                                                 Chọn hình ảnh
-                                            </button>
+                                            </label>
+                                            <input type="file" id="input-thumbnail" class="d-none">
                                         </div>
                                     </div>
                                 </div>
@@ -235,30 +237,6 @@
                 </div>
             </div>
         </section>
-
-        <div class="modal fade" id="modal-xl" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Extra Large Modal</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>One fine body…</p>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="button" class="btn btn-primary">
-                            Save changes
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -278,6 +256,7 @@
 <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 
 <script src="/admin-assets/plugins/select2/js/select2.full.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script th:inline="javascript">
     const blog = [[${blog}]];
@@ -303,6 +282,30 @@
     };
 
     initData(blog);
+
+    // Upload ảnh
+    const inputThumbnailEl = document.getElementById("input-thumbnail");
+    const thumbnailEl = document.getElementById("thumbnail");
+
+    inputThumbnailEl.addEventListener("change", async (event) => {
+        // Lấy file upload
+        const files = event.target.files;
+        console.log(files[0])
+
+        // Tạo đối tượng form data
+        const formData = new FormData();
+        formData.append("file", files[0]);
+
+        // Gọi API
+        try {
+            let res = await axios.post(`/api/admin/blogs/${blog.id}/upload-thumbnail`, formData);
+            console.log(res);
+
+            thumbnailEl.src = res.data;
+        } catch (e) {
+            console.log(e)
+        }
+    });
 </script>
 </body>
 
