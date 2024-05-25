@@ -2,6 +2,7 @@ package com.example.movieapp.service;
 
 import com.example.movieapp.entity.Blog;
 import com.example.movieapp.entity.User;
+import com.example.movieapp.exception.ResourceNotFoundException;
 import com.example.movieapp.repository.BlogRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,10 @@ public class BlogService {
     public List<Blog> getOwnBlogs() {
         User user = (User) session.getAttribute("currentUser");
         return blogRepository.findByUser_IdOrderByCreatedAtDesc(user.getId());
+    }
+
+    public Blog getBlogById(Integer id) {
+        return blogRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Blog not found"));
     }
 }

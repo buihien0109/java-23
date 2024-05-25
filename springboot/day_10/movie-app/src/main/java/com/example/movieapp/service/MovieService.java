@@ -1,6 +1,7 @@
 package com.example.movieapp.service;
 
 import com.example.movieapp.entity.Movie;
+import com.example.movieapp.exception.ResourceNotFoundException;
 import com.example.movieapp.model.enums.MovieType;
 import com.example.movieapp.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,11 +38,15 @@ public class MovieService {
     }
 
     public List<Movie> getRelatedMovies(Integer id, MovieType type, Boolean status, Integer size) {
-        return movieRepository
-                .findByTypeAndStatusAndRatingGreaterThanEqualAndIdNotOrderByRatingDescCreatedAtDesc(type, status, 5.0, id)
+        return movieRepository.findByTypeAndStatusAndRatingGreaterThanEqualAndIdNotOrderByRatingDescCreatedAtDesc(type, status, 5.0, id)
                 .stream()
                 .limit(size)
                 .toList();
+    }
+
+    public Movie getMovieById(Integer id) {
+        return movieRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
     }
 
 }

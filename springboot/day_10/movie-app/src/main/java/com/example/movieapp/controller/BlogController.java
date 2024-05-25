@@ -34,7 +34,8 @@ public class BlogController {
     }
 
     @GetMapping("/{id}")
-    public String getDetailPage(@PathVariable Integer id) {
+    public String getDetailPage(@PathVariable Integer id, Model model) {
+        model.addAttribute("blog", blogService.getBlogById(id));
         return "admin/blog/detail";
     }
 }
