@@ -1,142 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: layout(~{:: title}, ~{:: #css}, ~{:: .content-wrapper}, ~{:: #js})}">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Danh sách bài viết</title>
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/admin-assets/plugins/fontawesome-free/css/all.min.css" />
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/admin-assets/dist/css/adminlte.min.css" />
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/admin-assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />
-
     <!-- Datatable -->
-    <link rel="stylesheet" href="/admin-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" />
-    <link rel="stylesheet" href="/admin-assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" />
-    <link rel="stylesheet" href="/admin-assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css" />
+    <th:block id="css">
+        <link rel="stylesheet" href="/admin-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" href="/admin-assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" href="/admin-assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"/>
+    </th:block>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-        </ul>
-
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link py-0 d-flex align-items-center" data-toggle="dropdown" href="#">
-                    <div class="user-panel">
-                        <div class="image">
-                            <img src="/admin-assets/dist/img/user2-160x160.jpg" class="img-circle border" alt="User Image">
-                        </div>
-                    </div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                    <a href="/" class="dropdown-item">
-                        <span class="text-muted">Trang chủ</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <span class="text-muted">Đăng xuất</span>
-                    </a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                    <i class="fas fa-expand-arrows-alt"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="/admin/dashboard" class="brand-link">
-            <img src="/admin-assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: 0.8" />
-            <span class="brand-text font-weight-light">Admin</span>
-        </a>
-
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
-                            <p>
-                                Quản lý bài viết
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="/admin/blogs" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Tất cả bài viết</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/admin/blogs/own-blogs" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Bài viết của tôi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/admin/blogs/create" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Tạo bài viết</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tree"></i>
-                            <p>
-                                Quản lý user
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/UI/general.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Danh sách user</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/UI/icons.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Tạo user</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </aside>
-
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -185,7 +63,8 @@
                                     <tbody>
                                     <tr th:each="blog : ${blogs}">
                                         <td>
-                                            <a th:href="@{/admin/blogs/{id} (id=${blog.id})}" th:text="${blog.title}">Khai giảng khóa
+                                            <a th:href="@{/admin/blogs/{id} (id=${blog.id})}" th:text="${blog.title}">Khai
+                                                giảng khóa
                                                 Java Spring Boot 12A
                                                 - song song 2 hình
                                                 thức offline /
@@ -193,7 +72,8 @@
                                                 cầu đào tạo từ xa</a>
                                         </td>
                                         <td>
-                                            <a th:href="@{/admin/users/{id} (id=${blog.user.id})}" th:text="${blog.user.name}">John Doe</a>
+                                            <a th:href="@{/admin/users/{id} (id=${blog.user.id})}"
+                                               th:text="${blog.user.name}">John Doe</a>
                                         </td>
                                         <td th:text="${blog.status ? 'Công khai' : 'Nháp'}">Công khai</td>
                                         <td th:text="${#temporals.format(blog.createdAt, 'dd/MM/yyyy')}">06-07-2022</td>
@@ -209,36 +89,27 @@
     </div>
 </div>
 
-<!-- jQuery -->
-<script src="/admin-assets/plugins/jquery/jquery.min.js"></script>
+<th:block id="js">
+    <!-- Datatable -->
+    <script src="/admin-assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
-<!-- Bootstrap 4 -->
-<script src="/admin-assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- overlayScrollbars -->
-<script src="/admin-assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/admin-assets/dist/js/adminlte.js"></script>
-
-<!-- Datatable -->
-<script src="/admin-assets/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/admin-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="/admin-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/admin-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="/admin-assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/admin-assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-
-<script>
-    $('#table-blog').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-    });
-</script>
+    <script>
+        $('#table-blog').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    </script>
+</th:block>
 
 </body>
 
