@@ -1,10 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: layout(~{:: title}, ~{:: #css}, ~{:: .content-wrapper}, ~{:: #js})}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Danh sách phim</title>
+
+    <!-- Datatable -->
+    <th:block id="css">
+        <link rel="stylesheet" href="/admin-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" href="/admin-assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" href="/admin-assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"/>
+    </th:block>
 </head>
-<body>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Danh sách phim
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row py-2">
+                    <div class="col-12">
+                        <a href="/admin/movies/create" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Tạo phim
+                        </a>
+                        <a href="/admin/movies" class="btn btn-info">
+                            <i class="fas fa-redo"></i> Refresh
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-bordered table-hover" id="table-blog">
+                                    <thead>
+                                    <tr>
+                                        <th>Phim</th>
+                                        <th>Loại phim</th>
+                                        <th>Năm phát hành</th>
+                                        <th>Thể loại</th>
+                                        <th>Trạng thái</th>
+                                        <th>Ngày tạo</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="movie : ${movies}">
+                                        <td>
+                                            <a th:href="@{/admin/movies/{id} (id=${movie.id})}" th:text="${movie.name}"></a>
+                                        </td>
+                                        <td th:text="${movie.type}"></td>
+                                        <td th:text="${movie.releaseYear}"></td>
+                                        <td>
+                                            <span class="badge bg-primary mr-2" th:each="genre : ${movie.genres}"
+                                                  th:text="${genre.name}">Hành động</span>
+                                        </td>
+                                        <td th:text="${movie.status ? 'Công khai' : 'Nháp'}">Công khai</td>
+                                        <td th:text="${#temporals.format(movie.createdAt, 'dd/MM/yyyy')}">06-07-2022</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<th:block id="js">
+    <!-- Datatable -->
+    <script src="/admin-assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
+    <script>
+        $('#table-blog').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    </script>
+</th:block>
 
 </body>
+
 </html>

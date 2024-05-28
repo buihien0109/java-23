@@ -49,4 +49,7 @@ public class MovieService {
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
     }
 
+    public List<Movie> getAllMovies() {
+        return movieRepository.findAll(Sort.by("createdAt").descending());
+    }
 }

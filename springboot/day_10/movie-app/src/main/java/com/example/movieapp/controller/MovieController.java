@@ -1,10 +1,7 @@
 package com.example.movieapp.controller;
 
 import com.example.movieapp.model.enums.MovieType;
-import com.example.movieapp.repository.ActorRepository;
-import com.example.movieapp.repository.CountryRepository;
-import com.example.movieapp.repository.DirectorRepository;
-import com.example.movieapp.repository.GenreRepository;
+import com.example.movieapp.repository.*;
 import com.example.movieapp.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +18,14 @@ public class MovieController {
     private final DirectorRepository directorRepository;
     private final ActorRepository actorRepository;
     private final GenreRepository genreRepository;
+    private final EpisodeRepository episodeRepository;
     private final MovieService movieService;
+
+    @GetMapping
+    public String getHomePage(Model model) {
+        model.addAttribute("movies", movieService.getAllMovies());
+        return "admin/movie/index";
+    }
 
     // Tạo movie (template)
     @GetMapping("/create")
@@ -42,6 +46,9 @@ public class MovieController {
         model.addAttribute("actors", actorRepository.findAll());
         model.addAttribute("genres", genreRepository.findAll());
         model.addAttribute("movieTypes", MovieType.values());
+
+        // Trả ds tập phim của movie (sắp xếp theo displayOrder tăng dần)
+        model.addAttribute("episodes", episodeRepository.findByMovie_IdOrderByDisplayOrderAsc(id));
         return "admin/movie/detail";
     }
 }
