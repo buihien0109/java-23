@@ -160,7 +160,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mb-3">Danh sách tập phim</h4>
-                                <button class="btn btn-primary mb-3">Tạo tập phim</button>
+                                <button class="btn btn-primary mb-3" type="button" data-toggle="modal"
+                                        data-target="#modal-episode">Tạo tập phim</button>
                                 <table class="table table-bordered table-hover" id="table-episode">
                                     <thead>
                                     <tr>
@@ -204,9 +205,40 @@
                                         <div class="modal-content">
                                             <div class="modal-body">
                                                 <video width="100%" controls>
-                                                    <source src="https://res.cloudinary.com/dchrybytt/video/upload/v1713962259/upload_video/de6x2ox9zq60vq2n87x7.mp4" type="video/mp4">
+                                                    <source src="https://res.cloudinary.com/dchrybytt/video/upload/v1713962259/upload_video/de6x2ox9zq60vq2n87x7.mp4"
+                                                            type="video/mp4">
                                                     Your browser does not support the video tag.
                                                 </video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="modal-episode">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Tạo tập phim</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label>Tên tập phim</label>
+                                                        <input type="text" class="form-control" id="episode-name" placeholder="Tập 1, Tập 2, ..."/>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>Thứ tự tập phim</label>
+                                                        <input type="text" class="form-control" id="episode-displayOrder" placeholder="1, 2, 3, ..."/>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-primary">Tạo mới</button>
                                             </div>
                                         </div>
                                     </div>
