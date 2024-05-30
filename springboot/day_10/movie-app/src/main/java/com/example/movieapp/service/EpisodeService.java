@@ -19,4 +19,16 @@ public class EpisodeService {
     public List<Episode> getEpisodeListOfMovie(Integer movieId, Boolean status) {
         return episodeRepository.findByMovie_IdAndMovie_StatusOrderByDisplayOrderAsc(movieId, status);
     }
+
+    public Episode getEpisode(Integer movieId, String tap) {
+        if (tap.equals("full")) {
+            return episodeRepository
+                    .findByMovie_IdAndMovie_StatusAndDisplayOrder(movieId, true, 1)
+                    .orElse(null);
+        } else {
+            return episodeRepository
+                    .findByMovie_IdAndMovie_StatusAndDisplayOrder(movieId, true, Integer.parseInt(tap))
+                    .orElse(null);
+        }
+    }
 }
