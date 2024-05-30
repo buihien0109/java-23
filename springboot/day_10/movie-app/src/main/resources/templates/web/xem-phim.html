@@ -107,28 +107,13 @@
                         </div>
                     </div>
                 </div>
-
-                <th:block th:if="${movie.type.toString() == 'PHIM_BO' && episodes.size() > 0}">
-                    <a class="d-inline-block btn btn-danger px-5 py-2 mt-3 rounded"
-                       th:href="@{/xem-phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug}, tap=${episodes.get(0).displayOrder})}">
-                        <span><i class="fa-solid fa-play"></i></span>
-                        Xem phim</a>
-                </th:block>
-
-                <th:block
-                        th:if="${(movie.type.toString() == 'PHIM_LE' || movie.type.toString() == 'PHIM_CHIEU_RAP') && episodes.size() > 0}">
-                    <a class="d-inline-block btn btn-danger px-5 py-2 mt-3 rounded"
-                       th:href="@{/xem-phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug}, tap='full')}">
-                        <span><i class="fa-solid fa-play"></i></span>
-                        Xem phim</a>
-                </th:block>
-
             </div>
         </div>
 
         <div class="mt-4" th:if="${movie.type.toString() == 'PHIM_BO' && episodes.size() > 0}">
             <h3 class="mb-3">Tập phim</h3>
-            <a class="btn btn-dark me-2"
+            <a class="btn me-2"
+               th:classappend="${episode.displayOrder == currentEpisode.displayOrder ? 'btn-danger' : 'btn-dark'}"
                th:each="episode : ${episodes}"
                th:text="${episode.name}"
                th:href="@{/xem-phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug}, tap=${episode.displayOrder})}">
