@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+</head>
+<body>
+<h1>Form Login</h1>
+
+<form th:action="@{/login-handle}" method="post">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="email"><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="pass"><br><br>
+
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>
