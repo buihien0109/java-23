@@ -24,8 +24,7 @@ public class AuthApi {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        // Link xác thực
-        String path = authService.register(request);
-        return ResponseEntity.ok(path);
+        authService.register(request);
+        return ResponseEntity.ok().build();
     }
 }

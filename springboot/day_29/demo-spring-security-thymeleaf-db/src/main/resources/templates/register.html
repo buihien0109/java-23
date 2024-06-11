@@ -31,7 +31,7 @@
 
         try {
             const response = await axios.post('/api/auth/register', {name, email, password});
-            alert('Register success');
+            alert("Đăng ký thành công. Kiểm tra email để kích hoạt tài khoản");
         } catch (error) {
             console.error(error);
             alert(error.response.data.message)

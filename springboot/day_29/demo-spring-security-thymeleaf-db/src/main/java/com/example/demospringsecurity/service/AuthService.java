@@ -36,6 +36,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
     private final TokenConfirmRepository tokenConfirmRepository;
+    private final MailService mailService;
 
     public void login(LoginRequest request) {
         UsernamePasswordAuthenticationToken token =
@@ -52,7 +53,7 @@ public class AuthService {
         }
     }
 
-    public String register(RegisterRequest request) {
+    public void register(RegisterRequest request) {
         Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
         if (userOptional.isPresent()) {
             throw new BadRequestException("Email đã tồn tại");
@@ -81,7 +82,10 @@ public class AuthService {
         tokenConfirmRepository.save(token);
 
         // Tạo link xác thực
-        return "http://localhost:8080/xac-thuc-tai-khoan?token=" + token.getToken();
+        String link = "http://localhost:8080/xac-thuc-tai-khoan?token=" + token.getToken();
+
+        // Gửi mail xác thực
+        mailService.sendMail2(newUser, "Xác thực tài khoản", link);
     }
 
     public VerifyResponse confirmRegistration(String token) {
