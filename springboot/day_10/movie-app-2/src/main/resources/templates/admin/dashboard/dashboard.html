@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: layout(~{:: title}, ~{:: #css}, ~{:: .content-wrapper}, ~{:: #js})}">
+
+<head>
+    <title>Dashboard</title>
+
+    <th:block id="css">
+
+    </th:block>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Tổng quan
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 col-6">
+                                        <div class="small-box bg-info">
+                                            <div class="inner">
+                                                <h3>8/143</h3>
+                                                <p>Phim mới/Tổng số phim</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-bag"></i>
+                                            </div>
+                                            <a href="/admin/movies" class="small-box-footer">Xem thêm <i
+                                                    class="fas fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-6">
+                                        <div class="small-box bg-success">
+                                            <div class="inner">
+                                                <h3>62/738</h3>
+                                                <p>User mới/Tổng số user</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-stats-bars"></i>
+                                            </div>
+                                            <a href="/admin/users" class="small-box-footer">Xem thêm <i
+                                                    class="fas fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-6">
+                                        <div class="small-box bg-warning">
+                                            <div class="inner">
+                                                <h3>4/60</h3>
+                                                <p>Bài viết mới/Tổng số bài viết</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-person-add"></i>
+                                            </div>
+                                            <a href="/admin/blogs" class="small-box-footer">Xem thêm <i
+                                                    class="fas fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <canvas id="movie-chart"></canvas>
+                                    </div>
+                                    <div class="col-6">
+                                        <canvas id="user-chart"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-5">
+                                    <div class="col-6">
+                                        <div class="card">
+                                            <div class="card-header border-transparent">
+                                                <h3 class="card-title">Phim mới cập nhật</h3>
+                                            </div>
+                                            <div class="card-body p-0">
+                                                <div class="table-responsive">
+                                                    <table class="table m-0">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Phim</th>
+                                                            <th>Thể loại</th>
+                                                            <th>Trạng thái</th>
+                                                            <th>Ngày tạo</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><a href="pages/examples/invoice.html">King Kong</a></td>
+                                                            <td>Phim chiếu rạp</td>
+                                                            <td><span class="badge badge-success">Công khai</span></td>
+                                                            <td>03/05/2024</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer clearfix">
+                                                <a href="/admin/movies"
+                                                   class="btn btn-sm btn-secondary float-right">Xem thêm</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card">
+                                            <div class="card-header border-transparent">
+                                                <h3 class="card-title">User mới</h3>
+                                            </div>
+                                            <div class="card-body p-0">
+                                                <div class="table-responsive">
+                                                    <table class="table m-0">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Họ tên</th>
+                                                            <th>Email</th>
+                                                            <th>Ngày tạo</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><a href="pages/examples/invoice.html">Nguyễn Văn A</a></td>
+                                                            <td>a@gmail.cop</td>
+                                                            <td>01/05/2024</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer clearfix">
+                                                <a href="/admin/users"
+                                                   class="btn btn-sm btn-secondary float-right">Xem thêm</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<th:block id="js">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    /*
+    data = [
+        {
+            month: 11
+            year: 2023
+            movieCount: 6
+        },
+        {
+            month: 12
+            year: 2023
+            movieCount: 15
+        },
+        {
+            month: 1
+            year: 2024
+            movieCount: 8
+        }
+    ]
+    */
+    <script>
+        // Movie chart
+        const ctxMovie = document.getElementById('movie-chart');
+        new Chart(ctxMovie, {
+            type: 'bar',
+            data: {
+                labels: ["Tháng 1/2024", "Tháng 2/2024", "Tháng 3/2024", "Tháng 4/2024", "Tháng 5/2024"], // data.map(el => `Tháng ${el.month}/${el.year}`)
+                datasets: [{
+                    label: 'Phim cập nhật theo tháng',
+                    data: [12, 19, 3, 5, 8], // data.map(el => el.movieCount)
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // User chart
+        const ctxUser = document.getElementById('user-chart');
+        new Chart(ctxUser, {
+            type: 'line',
+            data: {
+                labels: ["Tháng 1/2024", "Tháng 2/2024", "Tháng 3/2024", "Tháng 4/2024", "Tháng 5/2024"],
+                datasets: [{
+                    label: 'User đăng ký theo tháng',
+                    data: [20, 34, 54, 26, 62],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</th:block>
+
+</body>
+
+</html>

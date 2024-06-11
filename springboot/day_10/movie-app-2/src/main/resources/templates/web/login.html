@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{web/layout/layout :: layout(~{:: title}, ~{}, ~{:: #main-content}, ~{:: #js})}">
+<head>
+    <title>Đăng nhập</title>
+</head>
+<body>
+
+<th:block id="main-content">
+    <section class="py-4">
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <h3 class="mb-3">Đăng nhập</h3>
+                <form id="form-login" class="p-4 bg-body-tertiary">
+                    <div class="mb-3 form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email"/>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"/>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary" id="btn-login">Đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block id="js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"
+            integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/additional-methods.min.js"
+            integrity="sha512-TiQST7x/0aMjgVTcep29gi+q5Lk5gVTUPE9XgN0g96rwtjEjLpod4mlBRKWHeBcvGBAEvJBmfDqh2hfMMmg+5A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $('#form-login').validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                },
+                password: {
+                    required: true
+                }
+            },
+            messages: {
+                email: {
+                    required: "Email không được để trống",
+                    email: "Email không đúng định dạng"
+                },
+                password: {
+                    required: "Mật khẩu không được để trống",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        // Xử lý login
+        const formLoginEl = document.getElementById('form-login');
+        const emailEl = document.getElementById('email');
+        const passwordEl = document.getElementById('password');
+
+        formLoginEl.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Kiểm tra form đã validate không
+            if(!$('#form-login').valid()) {
+                return;
+            }
+
+            const data = {
+                email: emailEl.value,
+                password: passwordEl.value
+            };
+
+            try {
+                const response = await axios.post('/api/auth/login', data);
+                if (response.status === 200) {
+                    toastr.success("Đăng nhập thành công");
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000); // sau 1s chuyển hướng về trang chủ
+                }
+            } catch (error) {
+                console.log(error);
+                toastr.error(error.response.data.message);
+            }
+        })
+    </script>
+</th:block>
+</body>
+</html>

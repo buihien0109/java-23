@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{web/layout/layout :: layout(~{:: title}, ~{}, ~{:: #main-content}, ~{})}">
+<head>
+    <title>Danh sách phim bộ</title>
+</head>
+<body>
+
+<th:block id="main-content">
+    <section class="py-4">
+        <div class="container">
+            <h3 class="mb-3">Danh sách phim bộ</h3>
+            <div class="row">
+                <div class="col-2" th:each="movie : ${pageData.getContent()}">
+                    <div class="movie-item">
+                        <a th:href="@{/phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug})}"
+                           class="movie-media">
+                            <div class="movie-poster rounded overflow-hidden">
+                                <img class="w-100 h-100"
+                                     th:src="${movie.poster}" th:alt="${movie.name}">
+                            </div>
+                            <p class="mt-2" th:text="${movie.name}">Cô Đi Mà Lấy Chồng Tôi</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-4" id="pagination" th:if="${pageData.getTotalPages() != 1}">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                            <a class="page-link" th:href="@{/phim-bo (page=${currentPage - 1})}">
+                                <i class="fa-solid fa-caret-left"></i>
+                            </a>
+                        </li>
+
+                        <li class="page-item"
+                            th:each="number: ${#numbers.sequence(1, pageData.getTotalPages())}"
+                            th:classappend="${currentPage == number ? 'active' : ''}"
+                        >
+                            <a class="page-link" th:href="@{/phim-bo (page=${number})}" th:text="${number}">1</a>
+                        </li>
+
+                        <li class="page-item" th:classappend="${currentPage == pageData.getTotalPages() ? 'disabled' : ''}">
+                            <a class="page-link" th:href="@{/phim-bo (page=${currentPage + 1})}">
+                                <i class="fa-solid fa-caret-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+</body>
+</html>

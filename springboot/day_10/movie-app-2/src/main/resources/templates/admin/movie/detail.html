@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: layout(~{:: title}, ~{:: #css}, ~{:: .content-wrapper}, ~{:: #js})}">
+
+<head>
+    <title th:text="${movie.name}"></title>
+
+    <th:block id="css">
+        <link rel="stylesheet" href="/admin-assets/plugins/select2/css/select2.min.css"/>
+        <link rel="stylesheet" href="/admin-assets/dist/css/style.css">
+    </th:block>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/admin/dashboard">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/admin/movies">Phim</a>
+                            </li>
+                            <li class="breadcrumb-item active" th:text="${movie.name}"></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row py-2">
+                    <div class="col-6">
+                        <a href="/admin/movies" class="btn btn-default">
+                            <i class="fas fa-chevron-left"></i> Quay lại
+                        </a>
+                        <button type="button" class="btn btn-info px-4">
+                            Cập nhật
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Tên phim</label>
+                                            <input type="text" class="form-control" id="title"
+                                                   th:value="${movie.name}"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Trailer URL</label>
+                                            <input type="text" class="form-control" id="trailer"
+                                                   th:value="${movie.trailer}"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Mô tả ngắn</label>
+                                            <textarea id="description" class="form-control" rows="5"
+                                                      th:text="${movie.description}"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Thể loại</label>
+                                            <div class="select2-purple">
+                                                <select class="select2 form-control" multiple="multiple" id="genre">
+                                                    <option th:each="genre : ${genres}"
+                                                            th:value="${genre.id}"
+                                                            th:selected="${movie.genres.contains(genre)}"
+                                                            th:text="${genre.name}">Java
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Đạo diễn</label>
+                                            <div class="select2-purple">
+                                                <select class="select2 form-control" multiple="multiple" id="director">
+                                                    <option th:each="director : ${directors}"
+                                                            th:value="${director.id}"
+                                                            th:selected="${movie.directors.contains(director)}"
+                                                            th:text="${director.name}">Java
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Diễn viên</label>
+                                            <div class="select2-purple">
+                                                <select class="select2 form-control" multiple="multiple" id="actor">
+                                                    <option th:each="actor : ${actors}"
+                                                            th:value="${actor.id}"
+                                                            th:selected="${movie.actors.contains(actor)}"
+                                                            th:text="${actor.name}">Java
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Trạng thái</label>
+                                            <select id="status" class="form-control">
+                                                <option value="false" th:selected="${!movie.status}">
+                                                    Nháp
+                                                </option>
+                                                <option value="true" th:selected="${movie.status}">
+                                                    Công khai
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Năm phát hành</label>
+                                            <input type="text" class="form-control" id="releaseYear"
+                                                   th:value="${movie.releaseYear}"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Thể loại phim</label>
+                                            <select id="type" class="form-control">
+                                                <option th:each="type : ${movieTypes}"
+                                                        th:selected="${type == movie.type}"
+                                                        th:value="${type}"
+                                                        th:text="${type}">Java
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Quốc gia</label>
+                                            <select id="country" class="form-control">
+                                                <option th:each="country : ${countries}"
+                                                        th:value="${country.id}"
+                                                        th:selected="${country.id == movie.country.id}"
+                                                        th:text="${country.name}">Java
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Danh sách tập phim</h4>
+                                <button class="btn btn-primary mb-3" type="button" data-toggle="modal"
+                                        data-target="#modal-episode">Tạo tập phim</button>
+                                <table class="table table-bordered table-hover" id="table-episode">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên tập phim</th>
+                                        <th>Video URL</th>
+                                        <th>Thời lượng</th>
+                                        <th>Ngày tạo</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="episode : ${episodes}">
+                                        <td th:text="${episode.displayOrder}">#</td>
+                                        <td th:text="${episode.name}">Tên tập phim</td>
+                                        <td th:text="${episode.videoUrl}">Video URL</td>
+                                        <td th:text="${episode.duration}">Thời lượng</td>
+                                        <td th:text="${#temporals.format(episode.createdAt, 'dd/MM/yyyy')}">Ngày tạo
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-warning text-white">
+                                                <i class="fas fa-upload"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary" type="button" data-toggle="modal"
+                                                    data-target="#modal-trailer">
+                                                <i class="fas fa-play"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-success">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="modal fade" id="modal-trailer">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <video width="100%" controls>
+                                                    <source src="https://res.cloudinary.com/dchrybytt/video/upload/v1713962259/upload_video/de6x2ox9zq60vq2n87x7.mp4"
+                                                            type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="modal-episode">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Tạo tập phim</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label>Tên tập phim</label>
+                                                        <input type="text" class="form-control" id="episode-name" placeholder="Tập 1, Tập 2, ..."/>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>Thứ tự tập phim</label>
+                                                        <input type="text" class="form-control" id="episode-displayOrder" placeholder="1, 2, 3, ..."/>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-primary">Tạo mới</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<th:block id="js">
+    <script src="/admin-assets/plugins/select2/js/select2.full.min.js"></script>
+    <script>
+        $(".select2").select2();
+    </script>
+</th:block>
+</body>
+
+</html>

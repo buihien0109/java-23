@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: layout(~{:: title}, ~{:: #css}, ~{:: .content-wrapper}, ~{:: #js})}">
+
+<head>
+    <title>Tạo bài viết</title>
+
+    <th:block id="css">
+        <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"/>
+        <link rel="stylesheet" href="/admin-assets/dist/css/style.css">
+    </th:block>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Blog</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Tạo bài viết
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row py-2">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-default">
+                            <i class="fas fa-chevron-left"></i> Quay lại
+                        </button>
+                        <button type="button" class="btn btn-info px-4">
+                            Lưu
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Tiêu đề</label>
+                                            <input type="text" class="form-control" id="title"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Nội dung</label>
+                                            <textarea id="content"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Mô tả ngắn</label>
+                                            <textarea id="description" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Trạng thái</label>
+                                            <select id="status" class="form-control">
+                                                <option value="0">
+                                                    Nháp
+                                                </option>
+                                                <option value="1">
+                                                    Công khai
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<th:block id="js">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <script>
+        const easyMDE = new EasyMDE({
+            element: document.getElementById("content"),
+            spellChecker: false,
+            maxHeight: "500px",
+            renderingConfig: {
+                codeSyntaxHighlighting: true,
+            },
+        });
+    </script>
+</th:block>
+</body>
+
+</html>

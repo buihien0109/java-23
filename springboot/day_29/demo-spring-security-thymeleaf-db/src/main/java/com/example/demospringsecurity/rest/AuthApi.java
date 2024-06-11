@@ -1,6 +1,7 @@
 package com.example.demospringsecurity.rest;
 
 import com.example.demospringsecurity.request.LoginRequest;
+import com.example.demospringsecurity.request.RegisterRequest;
 import com.example.demospringsecurity.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +20,12 @@ public class AuthApi {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         authService.login(request);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        // Link xác thực
+        String path = authService.register(request);
+        return ResponseEntity.ok(path);
     }
 }

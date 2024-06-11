@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{web/layout/layout :: layout(~{:: title}, ~{:: #css}, ~{:: #main-content}, ~{:: #js})}">
+<head>
+    <title>Trang chủ</title>
+
+    <th:block id="css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+              integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+              integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    </th:block>
+</head>
+<body>
+
+<th:block id="main-content">
+    <section class="py-4">
+        <div class="container">
+            <h3 class="mb-3">Phim HOT</h3>
+            <div class="movie-list owl-carousel">
+                <div class="movie-item" th:each="movie : ${listPhimHot}">
+                    <a th:href="@{/phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug})}"
+                       class="movie-media">
+                        <div class="movie-poster rounded overflow-hidden">
+                            <img class="w-100 h-100"
+                                 th:src="${movie.poster}" th:alt="${movie.name}">
+                        </div>
+                        <p class="mt-2" th:text="${movie.name}">Cô Đi Mà Lấy Chồng Tôi</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-3">Phim lẻ mới cập nhật</h3>
+                <a href="/phim-le" class="text-primary text-decoration-none">Xem thêm</a>
+            </div>
+            <div class="row">
+                <div class="col-2" th:each="movie : ${listPhimLe}">
+                    <div class="movie-item">
+                        <a th:href="@{/phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug})}"
+                           class="movie-media">
+                            <div class="movie-poster rounded overflow-hidden">
+                                <img class="w-100 h-100"
+                                     th:src="${movie.poster}" th:alt="${movie.name}">
+                            </div>
+                            <p class="mt-2" th:text="${movie.name}">Cô Đi Mà Lấy Chồng Tôi</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-3">Phim bộ mới cập nhật</h3>
+                <a href="/phim-bo" class="text-primary text-decoration-none">Xem thêm</a>
+            </div>
+            <div class="row">
+                <div class="col-2" th:each="movie : ${listPhimBo}">
+                    <div class="movie-item">
+                        <a th:href="@{/phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug})}"
+                           class="movie-media">
+                            <div class="movie-poster rounded overflow-hidden">
+                                <img class="w-100 h-100"
+                                     th:src="${movie.poster}" th:alt="${movie.name}">
+                            </div>
+                            <p class="mt-2" th:text="${movie.name}">Cô Đi Mà Lấy Chồng Tôi</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-3">Phim chiếu rạp mới cập nhật</h3>
+                <a href="/phim-chieu-rap" class="text-primary text-decoration-none">Xem thêm</a>
+            </div>
+            <div class="row">
+                <div class="col-2" th:each="movie : ${listPhimChieuRap}">
+                    <div class="movie-item">
+                        <a th:href="@{/phim/{id}/{slug} (id=${movie.id}, slug=${movie.slug})}"
+                           class="movie-media">
+                            <div class="movie-poster rounded overflow-hidden">
+                                <img class="w-100 h-100"
+                                     th:src="${movie.poster}" th:alt="${movie.name}">
+                            </div>
+                            <p class="mt-2" th:text="${movie.name}">Cô Đi Mà Lấy Chồng Tôi</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-3">Tin tức</h3>
+                <a href="#" class="text-primary text-decoration-none">Xem thêm</a>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="blog-item bg-body-tertiary p-3 rounded mb-4">
+                        <a href="">
+                            <h5>Top 15 Phim Cổ Trang Trung Quốc Hay Không Thể Bỏ Lỡ Năm 2023</h5>
+                            <p class="fst-italic">August 20, 2023</p>
+                            <p class="mb-0">Năm 2023 phim hàn quốc đã có nhiều nội dung được đổi mới và thu hút lượt xem
+                                nhiều hơn,
+                                vậy
+                                đâu là 10 bộ phim hàn quốc hot nhất năm 2023, Cùng Motchill điểm qua ...</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="blog-item bg-body-tertiary p-3 rounded mb-4">
+                        <a href="">
+                            <h5>Top 15 Phim Cổ Trang Trung Quốc Hay Không Thể Bỏ Lỡ Năm 2023</h5>
+                            <p class="fst-italic">August 20, 2023</p>
+                            <p class="mb-0">Năm 2023 phim hàn quốc đã có nhiều nội dung được đổi mới và thu hút lượt xem
+                                nhiều hơn,
+                                vậy
+                                đâu là 10 bộ phim hàn quốc hot nhất năm 2023, Cùng Motchill điểm qua ...</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="blog-item bg-body-tertiary p-3 rounded mb-4">
+                        <a href="">
+                            <h5>Top 15 Phim Cổ Trang Trung Quốc Hay Không Thể Bỏ Lỡ Năm 2023</h5>
+                            <p class="fst-italic">August 20, 2023</p>
+                            <p class="mb-0">Năm 2023 phim hàn quốc đã có nhiều nội dung được đổi mới và thu hút lượt xem
+                                nhiều hơn,
+                                vậy
+                                đâu là 10 bộ phim hàn quốc hot nhất năm 2023, Cùng Motchill điểm qua ...</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="blog-item bg-body-tertiary p-3 rounded mb-4">
+                        <a href="">
+                            <h5>Top 15 Phim Cổ Trang Trung Quốc Hay Không Thể Bỏ Lỡ Năm 2023</h5>
+                            <p class="fst-italic">August 20, 2023</p>
+                            <p class="mb-0">Năm 2023 phim hàn quốc đã có nhiều nội dung được đổi mới và thu hút lượt xem
+                                nhiều hơn,
+                                vậy
+                                đâu là 10 bộ phim hàn quốc hot nhất năm 2023, Cùng Motchill điểm qua ...</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block id="js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+            integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/web-assets/js/common.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".movie-list").owlCarousel({
+                items: 4,
+                margin: 20,
+                loop: true
+            });
+        });
+    </script>
+</th:block>
+
+</body>
+</html>

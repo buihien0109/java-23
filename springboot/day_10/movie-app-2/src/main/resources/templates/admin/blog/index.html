@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: layout(~{:: title}, ~{:: #css}, ~{:: .content-wrapper}, ~{:: #js})}">
+
+<head>
+    <title>Danh sách bài viết</title>
+
+    <!-- Datatable -->
+    <th:block id="css">
+        <link rel="stylesheet" href="/admin-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"/>
+        <link rel="stylesheet" href="/admin-assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"/>
+        <link rel="stylesheet" href="/admin-assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"/>
+    </th:block>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Danh sách bài viết
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row py-2">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Viết bài
+                        </button>
+                        <button type="button" class="btn btn-info">
+                            <i class="fas fa-redo"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-bordered table-hover" id="table-blog">
+                                    <thead>
+                                    <tr>
+                                        <th>Tiêu đề</th>
+                                        <th>Tác giả</th>
+                                        <th>Trạng thái</th>
+                                        <th>Ngày tạo</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="blog : ${blogs}">
+                                        <td>
+                                            <a th:href="@{/admin/blogs/{id} (id=${blog.id})}" th:text="${blog.title}">Khai
+                                                giảng khóa
+                                                Java Spring Boot 12A
+                                                - song song 2 hình
+                                                thức offline /
+                                                online đáp ứng nhu
+                                                cầu đào tạo từ xa</a>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/admin/users/{id} (id=${blog.user.id})}"
+                                               th:text="${blog.user.name}">John Doe</a>
+                                        </td>
+                                        <td th:text="${blog.status ? 'Công khai' : 'Nháp'}">Công khai</td>
+                                        <td th:text="${#temporals.format(blog.createdAt, 'dd/MM/yyyy')}">06-07-2022</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<th:block id="js">
+    <!-- Datatable -->
+    <script src="/admin-assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/admin-assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
+    <script>
+        $('#table-blog').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    </script>
+</th:block>
+
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{admin/layout/layout :: layout(~{:: title}, ~{:: #css}, ~{:: .content-wrapper}, ~{:: #js})}">
+
+<head>
+    <title th:text="${blog.title}">AdminLTE 3 | Dashboard</title>
+
+    <th:block id="css">
+        <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"/>
+        <link rel="stylesheet" href="/admin-assets/dist/css/style.css">
+    </th:block>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Blog</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Thực hành làm ứng dụng Meal Finder API
+                                với Javascript (Phần 2)
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row py-2">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-default">
+                            <i class="fas fa-chevron-left"></i> Quay lại
+                        </button>
+                        <button type="button" class="btn btn-info px-4">
+                            Lưu
+                        </button>
+                        <button type="button" class="btn btn-primary px-4">
+                            Preview
+                        </button>
+                    </div>
+
+                    <div class="col-6 d-flex justify-content-end">
+                        <button type="button" class="btn btn-danger px-4">
+                            Xóa
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Tiêu đề</label>
+                                            <input type="text" class="form-control" id="title"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Nội dung</label>
+                                            <textarea id="content"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Mô tả ngắn</label>
+                                            <textarea id="description" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Trạng thái</label>
+                                            <select id="status" class="form-control">
+                                                <option value="false">
+                                                    Nháp
+                                                </option>
+                                                <option value="true">
+                                                    Công khai
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="thumbnail-preview-container mb-3">
+                                                <img src="" alt="" id="thumbnail"/>
+                                            </div>
+                                            <label for="input-thumbnail" class="btn btn-info btn-flat">
+                                                Chọn hình ảnh
+                                            </label>
+                                            <input type="file" id="input-thumbnail" class="d-none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<th:block id="js">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <script th:inline="javascript">
+        const blog = [[${blog}]];
+
+        // Initialize editor
+        const easyMDE = new EasyMDE({
+            element: document.getElementById("content"),
+            spellChecker: false,
+            maxHeight: "500px",
+            renderingConfig: {
+                codeSyntaxHighlighting: true,
+            },
+        });
+
+        // Initialize data
+        const initData = (data) => {
+            $("#title").val(data.title);
+            easyMDE.value(data.content);
+            $("#description").html(data.description);
+            $("#status").val(data.status.toString());
+            $("#thumbnail").attr("src", data.thumbnail);
+        };
+
+        initData(blog);
+
+        // Upload ảnh
+        const inputThumbnailEl = document.getElementById("input-thumbnail");
+        const thumbnailEl = document.getElementById("thumbnail");
+
+        inputThumbnailEl.addEventListener("change", async (event) => {
+            // Lấy file upload
+            const files = event.target.files;
+
+            // Tạo đối tượng form data
+            const formData = new FormData();
+            formData.append("file", files[0]);
+
+            // Gọi API
+            try {
+                let res = await axios.post(`/api/admin/blogs/${blog.id}/upload-thumbnail`, formData);
+                thumbnailEl.src = res.data;
+                toastr.success("Upload ảnh thành công");
+            } catch (e) {
+                console.log(e)
+            }
+        });
+    </script>
+</th:block>
+</body>
+
+</html>
